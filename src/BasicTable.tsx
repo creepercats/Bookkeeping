@@ -6,33 +6,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { TransactionType, EntryData, PaymentType } from './types/types';
 
 
-interface Data {
-  id: number;
-  transactionType: TransactionType;
-  paymentType: PaymentType;
-  amount: number;
-}
+
 
 interface ColumnData {
-  dataKey: keyof Data;
+  dataKey: keyof EntryData;
   label: string;
   numeric?: boolean;
   width?: number;
 }
 
-enum PaymentType { 
-    Cash = "Cash",
-    Check = "Check"
-}
 
-enum TransactionType {
-    Income = "Income",
-    Expense = "Expense"
-}
 
-function createData(id: number, transactionType: TransactionType, paymentType: PaymentType, amount: number): Data {
+function createData(id: number, transactionType: TransactionType, paymentType: PaymentType, amount: number): EntryData {
   return {
     id,
     transactionType: transactionType,
@@ -69,7 +57,7 @@ export default function BasicTable() {
               </TableCell>
               <TableCell align="right">{row.transactionType}</TableCell>
               <TableCell align="right">{row.paymentType.toString()}</TableCell>
-              <TableCell align="right" style={row.transactionType === TransactionType.Income ? {color: 'green'} : {color: "red"}}>{"$" + row.amount.toFixed(2)}</TableCell>
+              <TableCell align="right" style={row.transactionType === TransactionType.Income ? {color: 'green'} : {color: "red"} }>{"$" + row.amount.toFixed(2)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
