@@ -1,4 +1,4 @@
- export enum PaymentType { 
+export enum PaymentType {
     Cash = "Cash",
     Check = "Check"
 }
@@ -9,8 +9,8 @@ export enum TransactionType {
 }
 
 export interface EntryData {
-  id: number;
-  transactionType: TransactionType;
-  paymentType: PaymentType;
-  amount: number;
+    id: number;
+    transactionType: TransactionType;
+    paymentType: PaymentType;
+    amount: number;
 }
