@@ -10,6 +10,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import {FormControl, TextField, Select, MenuItem, InputLabel, Stack} from '@mui/material';
 import {TransactionType, PaymentType} from './types/types';
 import Box from '@mui/material/Box';
+import {useState} from "react";
+import CashInput from "./CashInput";
 
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
     '& .MuiDialogContent-root': {
@@ -22,6 +24,8 @@ const BootstrapDialog = styled(Dialog)(({theme}) => ({
 
 export default function CreateItemPopup() {
     const [open, setOpen] = React.useState(false);
+    const [transactionType, setTransactionType] = useState(TransactionType.Expense);
+    const [paymentType, setPaymentType] = useState(PaymentType.Cash);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -69,14 +73,15 @@ export default function CreateItemPopup() {
                         spacing={2}               // vertical gap between children (2 = 16px by default)
                         sx={{ maxWidth: 400, mx: 'auto', p: 3 }}  // center + padding optional
                     >
-                        <TextField label="transaction-amount" variant="outlined" fullWidth />
+                        <CashInput/>
                         <FormControl fullWidth>
                             <InputLabel id="transaction-type-label">Transaction Type</InputLabel>
                             <Select
                                 labelId="transaction-type-label"
                                 id="transaction-type"
-                                value={TransactionType.Expense}
+                                value={transactionType}
                                 label="Transaction Type"
+                                onChange={(e) => setTransactionType(e.target.value as TransactionType)}
                             >
                                 <MenuItem value={TransactionType.Expense}>Expense</MenuItem>
                                 <MenuItem value={TransactionType.Income}>Income</MenuItem>
@@ -87,8 +92,9 @@ export default function CreateItemPopup() {
                             <Select
                                 labelId="payment-type-label"
                                 id="payment-type"
-                                value={PaymentType.Cash}
+                                value={paymentType}
                                 label="Payment Type"
+                                onChange={(e) => setPaymentType(e.target.value as PaymentType)}
                             >
                                 <MenuItem value={PaymentType.Cash}>Cash</MenuItem>
                                 <MenuItem value={PaymentType.Check}>Check</MenuItem>
